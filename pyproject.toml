@@ -16,7 +16,8 @@ classifiers = [
         'Natural Language :: English',
         'Programming Language :: Python :: 3.9'
     ]
-packages = [ "pyppeteerstealth"
+packages = [
+    { include = "pyppeteerstealth" },
 ]
 include = [
     "README.md"
