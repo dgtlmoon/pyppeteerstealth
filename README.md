@@ -2,7 +2,7 @@
 
 A bunch of hacks from different websites
 
-Does not yet pass https://arh.antoinevastel.com/bots/areyouheadless
+**Does not yet pass https://arh.antoinevastel.com/bots/areyouheadless**
 
 If you know what is missing, please make a PR!
 
