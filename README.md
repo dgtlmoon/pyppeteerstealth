@@ -18,7 +18,9 @@ browser = await pyppeteer_instance.connect(browserWSEndpoint="ws://127.0.0.1:300
                                            )
 
 self.page = (pages := await browser.pages) and len(pages) or await browser.newPage()
-await self.page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36")
+# Should be set with setUserAgent
+user_agent = next((value for key, value in request_headers.items() if key.lower().strip() == 'user-agent'), DEFAULT_USER_AGENT)
+await self.page.setUserAgent(user_agent)
 
 try:
     from pyppeteerstealth import inject_evasions_into_page
