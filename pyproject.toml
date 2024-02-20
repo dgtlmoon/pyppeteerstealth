@@ -16,11 +16,10 @@ classifiers = [
         'Natural Language :: English',
         'Programming Language :: Python :: 3.9'
     ]
-packages = [
+packages = [ "pyppeteerstealth"
 ]
 include = [
-    "README.md",
-    "__init__.py"
+    "README.md"
 ]
 exclude = [
     '*/__pycache__',
@@ -36,7 +35,7 @@ pyppeteer-install = 'pyppeteerstealth.command:install'
 
 [tool.black]
 line-length = 120
-target-version = ['py36', 'py37', 'py38']
+target-version = ['py36', 'py37', 'py38', 'py39', 'py310']
 skip-string-normalization = true
 
 [tool.isort]
