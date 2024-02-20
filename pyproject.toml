@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "pyppeteerstealth"
+version = "0.0.1"
+description = "A general collection of robot-evading tweaks for pyppeteer-ng"
+readme = 'README.md'
+license = "MIT"
+homepage = "https://github.com/dgtlmoon/pyppeteerstealth"
+repository = "https://github.com/dgtlmoon/pyppeteerstealth"
+keywords=['pyppeteer', 'puppeteer', 'chrome', 'chromium', 'pyppeteerstealth', 'stealth', 'robot', 'captcha']
+authors = [
+]
+classifiers = [
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3.9'
+    ]
+packages = [
+    { include = "pyppeteer" },
+]
+include = [
+    "README.md"
+]
+exclude = [
+    '*/__pycache__',
+    '*/*.py[co]',
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/dgtlmoon/pyppeteerstealth/issues"
+
+[tool.poetry.scripts]
+pyppeteer-install = 'pyppeteerstealth.command:install'
+
+
+[tool.black]
+line-length = 120
+target-version = ['py36', 'py37', 'py38']
+skip-string-normalization = true
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+known_third_party = ["PIL", "aiohttp", "appdirs", "certifi", "diff_match_patch", "livereload", "networkx", "ordered_set", "pixelmatch", "pyee", "pyppeteer", "pytest", "syncer", "tests", "tqdm", "urllib3", "websockets"]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
