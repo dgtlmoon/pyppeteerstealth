@@ -22,9 +22,6 @@ async def inject_evasions_into_page(page : Page) -> None:
     #    - Different avail/inner/outer widths/heights because Windows has a different size taskbar and other things
     #    - Widevine plugin
     #    */
-
-    userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
-    await page.setUserAgent(userAgent);
     await page.setExtraHTTPHeaders({"DNT": "1"});
 
     # Puppeteer defines languages to be "" for some reason
