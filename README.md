@@ -12,14 +12,13 @@ to see what is required to get the fingerprint closer to a "normal" browser (fur
 This is intended to be used with https://github.com/dgtlmoon/pyppeteer-ng and is also part of the 
 https://changedetection.io project.
 
-Set your userAgent outside this (Various evasions were last tweaked using `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36`)
-
 ```python
 browser = await pyppeteer_instance.connect(browserWSEndpoint="ws://127.0.0.1:3000",
                                            ignoreHTTPSErrors=True
                                            )
 
 self.page = (pages := await browser.pages) and len(pages) or await browser.newPage()
+await self.page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36")
 
 try:
     from pyppeteerstealth import inject_evasions_into_page
@@ -28,6 +27,8 @@ except ImportError:
     pass
 else:
     await inject_evasions_into_page(self.page)
+
+response = await self.page.goto("https://example.com", waitUntil="load")
 ```
 
 Last report from https://bot.sannysoft.com/
