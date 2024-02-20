@@ -2,9 +2,11 @@
 
 A bunch of hacks from different websites
 
-**Does not yet pass https://arh.antoinevastel.com/bots/areyouheadless**
+## Note!
+- **Does not yet pass https://arh.antoinevastel.com/bots/areyouheadless**
+- Probably wont help where sites are using https://developer.mozilla.org/en-US/docs/Web/API/User-Agent_Client_Hints_API (`navigator.userAgentData.brands` etc)
 
-If you know what is missing, please make a PR!
+__**If you know what is missing, please make a PR!!!**__
 
 If you compare loading https://arh.antoinevastel.com/bots/ in your application, versus in your browser you might be able
 to see what is required to get the fingerprint closer to a "normal" browser (further away from a "headless" browser)
