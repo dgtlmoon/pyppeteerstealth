@@ -3,7 +3,7 @@
 A bunch of hacks from different websites
 
 ## Note!
-- **Does not yet pass https://arh.antoinevastel.com/bots/areyouheadless**
+- **Does not yet pass https://arh.antoinevastel.com/bots/areyouheadless** please help!
 - Probably wont help where sites are using https://developer.mozilla.org/en-US/docs/Web/API/User-Agent_Client_Hints_API (`navigator.userAgentData.brands` etc)
 
 __**If you know what is missing, please make a PR!!!**__
