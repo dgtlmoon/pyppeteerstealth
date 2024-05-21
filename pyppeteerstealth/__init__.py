@@ -22,7 +22,9 @@ async def inject_evasions_into_page(page : Page) -> None:
     #    - Different avail/inner/outer widths/heights because Windows has a different size taskbar and other things
     #    - Widevine plugin
     #    */
-    await page.setExtraHTTPHeaders({"DNT": "1"});
+
+# Doesn't really help and results in errors from scraping browser providers
+#    await page.setExtraHTTPHeaders({"DNT": "1"});
 
     # Puppeteer defines languages to be "" for some reason
     # https://pptr.dev/api/puppeteer.page.evaluateRawOnNewDocument
