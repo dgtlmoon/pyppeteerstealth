@@ -663,83 +663,84 @@ Object.defineProperty(navigator, "webdrivervalue", {
 
 
     # Evade toString detection
-    await page.evaluateRawOnNewDocument('''
-                // Spoofs the toString output of the following functions to native code.  If you spoof another function, add it to this list.
-                var functionList = [
-                    Permissions.prototype.query,
-                    window.alert,
-                    Document.prototype.hasFocus,
-                    WebGLRenderingContext.prototype.getParameter,
-                    navigator.mimeTypes.item,
-                    navigator.mimeTypes.namedItem,
-                    navigator.plugins.refresh,
-                    HTMLVideoElement.prototype.canPlayType,
-                    HTMLAudioElement.prototype.canPlayType,
-                    window.matchMedia,
-                    Object.getOwnPropertyDescriptor(Screen.prototype, "height").get,
-                    Object.getOwnPropertyDescriptor(Screen.prototype, "width").get,
-                    Object.getOwnPropertyDescriptor(Screen.prototype, "availHeight")
-                        .get,
-                    Object.getOwnPropertyDescriptor(ScreenOrientation.prototype, "type")
-                        .get,
-                    Object.getOwnPropertyDescriptor(
-                        ScreenOrientation.prototype,
-                        "angle",
-                    ).get,
-                    Object.getOwnPropertyDescriptor(Screen.prototype, "availWidth").get,
-                    Object.getOwnPropertyDescriptor(Document.prototype, "hidden").get,
-                    Object.getOwnPropertyDescriptor(
-                        Document.prototype,
-                        "visiblityState",
-                    ).get,
-                    Object.getOwnPropertyDescriptor(BarProp.prototype, "visible").get,
-                    Object.getOwnPropertyDescriptor(Navigator.prototype, "mimeTypes")
-                        .get,
-                    Object.getOwnPropertyDescriptor(Navigator.prototype, "plugins").get,
-                    Object.getOwnPropertyDescriptor(Navigator.prototype, "languages")
-                        .get,
-                    Object.getOwnPropertyDescriptor(window, "innerWidth").get,
-                    Object.getOwnPropertyDescriptor(window, "innerHeight").get,
-                    Object.getOwnPropertyDescriptor(window, "outerWidth").get,
-                    Object.getOwnPropertyDescriptor(window, "outerHeight").get,
-                    Object.getOwnPropertyDescriptor(
-                        HTMLHtmlElement.prototype,
-                        "clientWidth",
-                    ).get,
-                    Object.getOwnPropertyDescriptor(
-                        HTMLHtmlElement.prototype,
-                        "clientHeight",
-                    ).get,
-                    Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "width")
-                        .get,
-                    Object.getOwnPropertyDescriptor(
-                        HTMLImageElement.prototype,
-                        "height",
-                    ).get,
-                    HTMLElement.prototype.animate,
-                    window.chrome.csi,
-                    window.chrome.loadTimes,
-                    window.chrome.app.getDetails,
-                    window.chrome.app.getIsInstalled,
-                    window.chrome.app.runningState,
-                    Object.getOwnPropertyDescriptor(window.chrome.app, "isInstalled")
-                        .get,
-                    document.createElement,
-                ];
-    
-                // Undetecable toString modification - https://adtechmadness.wordpress.com/2019/03/23/javascript-tampering-detection-and-stealth/ */
-                var toStringProxy = new Proxy(Function.prototype.toString, {
-                    apply: function toString(target, thisArg, args) {
-                        // Special functions we make always return "native code"
-                        // NOTE: This depends on the functions being named (see hasFocus example).  Anonymous functions will not work (or at least will not show the proper output) because their name attribute is equal to "".
-                        if (functionList.includes(thisArg)) {
-                            return "function " + thisArg.name + "() { [native code] }";
-                        } else {
-                            return target.call(thisArg);
-                        }
-                    },
-                });
-    
-                Function.prototype.toString = toStringProxy;
-                functionList.push(Function.prototype.toString); // now that its modified, we can add it
-            ''')
+    # 3/oct/'24 - Seemed to cause some sites to crash that ran NextJS etc
+    # await page.evaluateRawOnNewDocument('''
+    #             // Spoofs the toString output of the following functions to native code.  If you spoof another function, add it to this list.
+    #             var functionList = [
+    #                 Permissions.prototype.query,
+    #                 window.alert,
+    #                 Document.prototype.hasFocus,
+    #                 WebGLRenderingContext.prototype.getParameter,
+    #                 navigator.mimeTypes.item,
+    #                 navigator.mimeTypes.namedItem,
+    #                 navigator.plugins.refresh,
+    #                 HTMLVideoElement.prototype.canPlayType,
+    #                 HTMLAudioElement.prototype.canPlayType,
+    #                 window.matchMedia,
+    #                 Object.getOwnPropertyDescriptor(Screen.prototype, "height").get,
+    #                 Object.getOwnPropertyDescriptor(Screen.prototype, "width").get,
+    #                 Object.getOwnPropertyDescriptor(Screen.prototype, "availHeight")
+    #                     .get,
+    #                 Object.getOwnPropertyDescriptor(ScreenOrientation.prototype, "type")
+    #                     .get,
+    #                 Object.getOwnPropertyDescriptor(
+    #                     ScreenOrientation.prototype,
+    #                     "angle",
+    #                 ).get,
+    #                 Object.getOwnPropertyDescriptor(Screen.prototype, "availWidth").get,
+    #                 Object.getOwnPropertyDescriptor(Document.prototype, "hidden").get,
+    #                 Object.getOwnPropertyDescriptor(
+    #                     Document.prototype,
+    #                     "visiblityState",
+    #                 ).get,
+    #                 Object.getOwnPropertyDescriptor(BarProp.prototype, "visible").get,
+    #                 Object.getOwnPropertyDescriptor(Navigator.prototype, "mimeTypes")
+    #                     .get,
+    #                 Object.getOwnPropertyDescriptor(Navigator.prototype, "plugins").get,
+    #                 Object.getOwnPropertyDescriptor(Navigator.prototype, "languages")
+    #                     .get,
+    #                 Object.getOwnPropertyDescriptor(window, "innerWidth").get,
+    #                 Object.getOwnPropertyDescriptor(window, "innerHeight").get,
+    #                 Object.getOwnPropertyDescriptor(window, "outerWidth").get,
+    #                 Object.getOwnPropertyDescriptor(window, "outerHeight").get,
+    #                 Object.getOwnPropertyDescriptor(
+    #                     HTMLHtmlElement.prototype,
+    #                     "clientWidth",
+    #                 ).get,
+    #                 Object.getOwnPropertyDescriptor(
+    #                     HTMLHtmlElement.prototype,
+    #                     "clientHeight",
+    #                 ).get,
+    #                 Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "width")
+    #                     .get,
+    #                 Object.getOwnPropertyDescriptor(
+    #                     HTMLImageElement.prototype,
+    #                     "height",
+    #                 ).get,
+    #                 HTMLElement.prototype.animate,
+    #                 window.chrome.csi,
+    #                 window.chrome.loadTimes,
+    #                 window.chrome.app.getDetails,
+    #                 window.chrome.app.getIsInstalled,
+    #                 window.chrome.app.runningState,
+    #                 Object.getOwnPropertyDescriptor(window.chrome.app, "isInstalled")
+    #                     .get,
+    #                 document.createElement,
+    #             ];
+    #
+    #             // Undetecable toString modification - https://adtechmadness.wordpress.com/2019/03/23/javascript-tampering-detection-and-stealth/ */
+    #             var toStringProxy = new Proxy(Function.prototype.toString, {
+    #                 apply: function toString(target, thisArg, args) {
+    #                     // Special functions we make always return "native code"
+    #                     // NOTE: This depends on the functions being named (see hasFocus example).  Anonymous functions will not work (or at least will not show the proper output) because their name attribute is equal to "".
+    #                     if (functionList.includes(thisArg)) {
+    #                         return "function " + thisArg.name + "() { [native code] }";
+    #                     } else {
+    #                         return target.call(thisArg);
+    #                     }
+    #                 },
+    #             });
+    #
+    #             Function.prototype.toString = toStringProxy;
+    #             functionList.push(Function.prototype.toString); // now that its modified, we can add it
+    #         ''')
