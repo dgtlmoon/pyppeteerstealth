@@ -5,7 +5,8 @@ A bunch of hacks from different websites
 ## Note!
 - **Does not yet pass https://arh.antoinevastel.com/bots/areyouheadless** please help!
 - Probably wont help where sites are using https://developer.mozilla.org/en-US/docs/Web/API/User-Agent_Client_Hints_API (`navigator.userAgentData.brands` etc)
-
+- Designed to work with the puppeteer fetcher at https://changedetection.io
+ 
 __**If you know what is missing, please make a PR!!!**__
 
 If you compare loading https://arh.antoinevastel.com/bots/ in your application, versus in your browser you might be able
@@ -38,4 +39,8 @@ response = await self.page.goto("https://example.com", waitUntil="load")
 Last report from https://bot.sannysoft.com/
 
 ![last fingerprint status](assets/last-screenshot.png "Last fingerprint status")
+
+
+### Other related interesting projects/alternatives
+- https://github.com/MeiK2333/pyppeteer_stealth
 
