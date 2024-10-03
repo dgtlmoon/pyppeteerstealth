@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyppeteerstealth"
-version = "0.0.4"
+version = "0.0.5"
 description = "A general collection of robot-evading tweaks for pyppeteer-ng"
 readme = 'README.md'
 license = "MIT"
